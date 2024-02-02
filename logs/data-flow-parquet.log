@@ -1,0 +1,109 @@
+2024-02-01 21:54:52,039:INFO:Found credentials in shared credentials file: ~/.aws/credentials
+2024-02-01 21:55:02,348:WARNING:No se pudo leer el archivo de proyectos actualizados desde S3: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:55:04,822:INFO:Proyecto otu E321-2: Datos subidos correctamente a S3.
+2024-02-01 21:55:06,099:INFO:Proyecto otu C1: Datos subidos correctamente a S3.
+2024-02-01 21:55:08,205:INFO:Proyecto otu E267: Datos subidos correctamente a S3.
+2024-02-01 21:55:10,419:INFO:Proyecto otu E355: Datos subidos correctamente a S3.
+2024-02-01 21:55:11,687:INFO:Proyecto otu E352: Datos subidos correctamente a S3.
+2024-02-01 21:55:13,471:INFO:Proyecto otu E294 : Datos subidos correctamente a S3.
+2024-02-01 21:55:14,434:INFO:Proyecto otu E319: Datos subidos correctamente a S3.
+2024-02-01 21:55:15,265:INFO:Proyecto otu E324: Datos subidos correctamente a S3.
+2024-02-01 21:55:16,271:INFO:Proyecto otu E348: Datos subidos correctamente a S3.
+2024-02-01 21:55:16,759:INFO:Proyecto otu PetForum: Datos subidos correctamente a S3.
+2024-02-01 21:55:17,264:INFO:Proyecto otu IlumaPets: Datos subidos correctamente a S3.
+2024-02-01 21:55:18,366:INFO:Proyecto otu UIGanoderma: Datos subidos correctamente a S3.
+2024-02-01 21:55:20,828:INFO:Proyecto otu E271: Datos subidos correctamente a S3.
+2024-02-01 21:55:27,000:INFO:Proyecto otu PilotStudy: Datos subidos correctamente a S3.
+2024-02-01 21:55:28,670:INFO:Proyecto otu TonyRiddle: Datos subidos correctamente a S3.
+2024-02-01 21:55:30,202:INFO:Proyecto otu E351: Datos subidos correctamente a S3.
+2024-02-01 21:55:30,940:INFO:Proyecto otu KochFoodsHoltFarm: Datos subidos correctamente a S3.
+2024-02-01 21:55:32,387:INFO:Proyecto otu E325: Datos subidos correctamente a S3.
+2024-02-01 21:55:33,436:INFO:Proyecto otu SPRGFractal: Datos subidos correctamente a S3.
+2024-02-01 21:55:35,115:INFO:Proyecto otu E335: Datos subidos correctamente a S3.
+2024-02-01 21:55:36,824:INFO:Proyecto otu E345: Datos subidos correctamente a S3.
+2024-02-01 21:55:38,358:INFO:Proyecto otu E347: Datos subidos correctamente a S3.
+2024-02-01 21:55:40,886:INFO:Proyecto otu Joyce: Datos subidos correctamente a S3.
+2024-02-01 21:55:42,152:INFO:Proyecto otu C3: Datos subidos correctamente a S3.
+2024-02-01 21:55:46,654:INFO:Proyecto otu E349: Datos subidos correctamente a S3.
+2024-02-01 21:55:49,217:INFO:Proyecto otu ExperimentNirvana: Datos subidos correctamente a S3.
+2024-02-01 21:55:53,544:INFO:Proyecto otu Fieldale: Datos subidos correctamente a S3.
+2024-02-01 21:55:55,439:INFO:Proyecto otu C2: Datos subidos correctamente a S3.
+2024-02-01 21:55:56,324:INFO:Proyecto otu E350: Datos subidos correctamente a S3.
+2024-02-01 21:55:57,060:INFO:Proyecto otu E326: Datos subidos correctamente a S3.
+2024-02-01 21:55:57,712:INFO:Proyecto otu E338: Datos subidos correctamente a S3.
+2024-02-01 21:55:58,581:INFO:Proyecto otu E321: Datos subidos correctamente a S3.
+2024-02-01 21:55:59,754:INFO:Proyecto otu Case: Datos subidos correctamente a S3.
+2024-02-01 21:56:00,621:INFO:Proyecto otu E341: Datos subidos correctamente a S3.
+2024-02-01 21:56:01,172:INFO:Proyecto otu E346: Datos subidos correctamente a S3.
+2024-02-01 21:56:01,666:INFO:Proyecto otu Standard: Datos subidos correctamente a S3.
+2024-02-01 21:56:01,979:WARNING:No se pudo leer el archivo de proyectos actualizados desde S3: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:03,155:ERROR:Proyecto Meta E321-2: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:03,507:INFO:Proyecto Meta E321-2: Datos subidos correctamente a S3.
+2024-02-01 21:56:03,996:ERROR:Proyecto Meta C1: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:04,229:INFO:Proyecto Meta C1: Datos subidos correctamente a S3.
+2024-02-01 21:56:04,804:ERROR:Proyecto Meta E267: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:05,043:INFO:Proyecto Meta E267: Datos subidos correctamente a S3.
+2024-02-01 21:56:05,801:INFO:Proyecto Meta E355: Datos subidos correctamente a S3.
+2024-02-01 21:56:06,193:ERROR:Proyecto Meta E352: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:06,417:INFO:Proyecto Meta E352: Datos subidos correctamente a S3.
+2024-02-01 21:56:06,910:ERROR:Proyecto Meta E294 : An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:07,150:INFO:Proyecto Meta E294 : Datos subidos correctamente a S3.
+2024-02-01 21:56:07,535:ERROR:Proyecto Meta E319: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:07,762:INFO:Proyecto Meta E319: Datos subidos correctamente a S3.
+2024-02-01 21:56:08,144:ERROR:Proyecto Meta E324: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:08,397:INFO:Proyecto Meta E324: Datos subidos correctamente a S3.
+2024-02-01 21:56:08,799:ERROR:Proyecto Meta E348: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:09,034:INFO:Proyecto Meta E348: Datos subidos correctamente a S3.
+2024-02-01 21:56:09,423:ERROR:Proyecto Meta PetForum: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:09,652:INFO:Proyecto Meta PetForum: Datos subidos correctamente a S3.
+2024-02-01 21:56:10,046:ERROR:Proyecto Meta IlumaPets: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:10,255:INFO:Proyecto Meta IlumaPets: Datos subidos correctamente a S3.
+2024-02-01 21:56:10,746:ERROR:Proyecto Meta UIGanoderma: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:10,979:INFO:Proyecto Meta UIGanoderma: Datos subidos correctamente a S3.
+2024-02-01 21:56:11,564:ERROR:Proyecto Meta E271: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:11,784:INFO:Proyecto Meta E271: Datos subidos correctamente a S3.
+2024-02-01 21:56:12,368:ERROR:Proyecto Meta PilotStudy: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:12,593:INFO:Proyecto Meta PilotStudy: Datos subidos correctamente a S3.
+2024-02-01 21:56:12,978:ERROR:Proyecto Meta TonyRiddle: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:13,214:INFO:Proyecto Meta TonyRiddle: Datos subidos correctamente a S3.
+2024-02-01 21:56:13,606:ERROR:Proyecto Meta E351: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:13,822:INFO:Proyecto Meta E351: Datos subidos correctamente a S3.
+2024-02-01 21:56:14,204:ERROR:Proyecto Meta KochFoodsHoltFarm: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:14,423:INFO:Proyecto Meta KochFoodsHoltFarm: Datos subidos correctamente a S3.
+2024-02-01 21:56:14,907:ERROR:Proyecto Meta E325: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:15,141:INFO:Proyecto Meta E325: Datos subidos correctamente a S3.
+2024-02-01 21:56:15,642:ERROR:Proyecto Meta SPRGFractal: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:15,882:INFO:Proyecto Meta SPRGFractal: Datos subidos correctamente a S3.
+2024-02-01 21:56:16,625:INFO:Proyecto Meta E335: Datos subidos correctamente a S3.
+2024-02-01 21:56:17,099:ERROR:Proyecto Meta E345: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:17,319:INFO:Proyecto Meta E345: Datos subidos correctamente a S3.
+2024-02-01 21:56:17,824:ERROR:Proyecto Meta E347: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:18,050:INFO:Proyecto Meta E347: Datos subidos correctamente a S3.
+2024-02-01 21:56:18,448:ERROR:Proyecto Meta Joyce: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:18,685:INFO:Proyecto Meta Joyce: Datos subidos correctamente a S3.
+2024-02-01 21:56:19,078:ERROR:Proyecto Meta C3: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:19,301:INFO:Proyecto Meta C3: Datos subidos correctamente a S3.
+2024-02-01 21:56:19,880:ERROR:Proyecto Meta E349: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:20,108:INFO:Proyecto Meta E349: Datos subidos correctamente a S3.
+2024-02-01 21:56:20,586:ERROR:Proyecto Meta ExperimentNirvana: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:20,793:INFO:Proyecto Meta ExperimentNirvana: Datos subidos correctamente a S3.
+2024-02-01 21:56:21,283:ERROR:Proyecto Meta Fieldale: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:21,515:INFO:Proyecto Meta Fieldale: Datos subidos correctamente a S3.
+2024-02-01 21:56:21,915:ERROR:Proyecto Meta C2: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:22,166:INFO:Proyecto Meta C2: Datos subidos correctamente a S3.
+2024-02-01 21:56:22,569:ERROR:Proyecto Meta E350: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:22,777:INFO:Proyecto Meta E350: Datos subidos correctamente a S3.
+2024-02-01 21:56:23,270:ERROR:Proyecto Meta E326: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:23,503:INFO:Proyecto Meta E326: Datos subidos correctamente a S3.
+2024-02-01 21:56:23,883:ERROR:Proyecto Meta E338: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:24,134:INFO:Proyecto Meta E338: Datos subidos correctamente a S3.
+2024-02-01 21:56:24,628:ERROR:Proyecto Meta E321: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:24,846:INFO:Proyecto Meta E321: Datos subidos correctamente a S3.
+2024-02-01 21:56:25,324:ERROR:Proyecto Meta Case: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:25,560:INFO:Proyecto Meta Case: Datos subidos correctamente a S3.
+2024-02-01 21:56:26,038:ERROR:Proyecto Meta E341: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:26,279:INFO:Proyecto Meta E341: Datos subidos correctamente a S3.
+2024-02-01 21:56:26,664:ERROR:Proyecto Meta E346: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:26,878:INFO:Proyecto Meta E346: Datos subidos correctamente a S3.
+2024-02-01 21:56:27,261:ERROR:Proyecto Meta Standard: An error occurred (NoSuchKey) when calling the GetObject operation: The specified key does not exist.
+2024-02-01 21:56:27,491:INFO:Proyecto Meta Standard: Datos subidos correctamente a S3.
