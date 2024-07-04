@@ -108,3 +108,25 @@ class GeneExpression(base):
     deltaCq = sa.Column(Float)
     uniqueKey = sa.Column(String, primary_key=True, nullable=False)
 
+
+class OtuCount(Base):
+    __tablename__ = 'otucount'
+    sampleId = Column(String, primary_key=True)
+    otu = Column(String)
+    value = Column(Float)
+    uniqueKey = Column(String, unique=True, index=True)
+
+
+class Taxonomy(Base):
+    __tablename__ = 'taxonomy'
+    otu = Column(String, unique=True, primary_key=True)
+    species = Column(String)
+    genus = Column(String)
+    family = Column(String)
+    order = Column(String)
+    tclass = Column(String)
+    phylum = Column(String)
+    kingdom = Column(String)
+
+
+

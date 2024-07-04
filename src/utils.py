@@ -12,7 +12,7 @@ from sqlalchemy.schema import MetaData
 from sqlalchemy.engine.url import URL
 from sqlalchemy.ext.declarative import declarative_base
 from dotenv import load_dotenv
-from src.base import AnimalPets, AnimalProd,GeneExpression, Histopathology, KitPets, KitProduction, Microbiome
+from src.base import AnimalPets, AnimalProd,GeneExpression, Histopathology, KitPets, KitProduction, Microbiome, OtuCount, Taxonomy
 import logging
 from io import BytesIO
 from pathlib import Path
@@ -277,3 +277,53 @@ def check_query_status(query_execution_id):
     result = athena_client.get_query_execution(QueryExecutionId=query_execution_id)
     status = result['QueryExecution']['Status']['State']
     return status, result
+
+
+def fetch_otu_counts_to_dataframe():
+    try:
+        # Realiza la consulta
+        otu_counts = session.query(OtuCount).all()
+        
+        # Crear una lista de diccionarios, donde cada diccionario representa un conteo OTU
+        data = [{
+            'Sample ID': otu_count.sampleId,
+            'OTU': otu_count.otu,
+            'Value': otu_count.value,
+            'Unique Key': otu_count.uniqueKey
+        } for otu_count in otu_counts]
+        
+        # Convertir la lista de diccionarios a DataFrame
+        df = pd.DataFrame(data)
+        return df
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    finally:
+        session.close()
+
+
+# Función para recuperar datos y convertirlos a DataFrame
+def fetch_taxonomy_to_dataframe():
+    try:
+        # Realiza la consulta
+        taxonomy_query = session.query(Taxonomy)
+        data = [{
+            'OTU': tax.otu,
+            'Species': tax.species,
+            'Genus': tax.genus,
+            'Family': tax.family,
+            'Order': tax.order,
+            'Class': tax.tclass,
+            'Phylum': tax.phylum,
+            'Kingdom': tax.kingdom
+        } for tax in taxonomy_query.all()]
+        
+        # Convertir la lista de diccionarios a DataFrame
+        df = pd.DataFrame(data)
+        return df
+
+    except Exception as e:
+        logger.error(f"An error occurred: {e}")
+    finally:
+        session.close()
+
