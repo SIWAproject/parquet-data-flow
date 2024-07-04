@@ -1,62 +1,52 @@
+# Athena Data Flow Script
 
-# Data Flow Parquet Project
+💡 **Nota**: Amazon Athena es un servicio de consulta interactivo que facilita el análisis de datos en Amazon S3 utilizando SQL estándar. Para más detalles sobre cómo utilizar Athena, puedes consultar la [guía para usar Amazon Athena](https://www.notion.so/d4caea8159254ad0b55b60c635e0b6b0?pvs=21).
 
-Este proyecto incluye scripts para consultar datos en redshift, procesarlos, convertirlos a formato Parquet y subirlos a AWS S3.
+## Estructura del Proyecto
 
-## Descripción
-
-El proyecto automatiza la extracción de datos desde una base de datos SQL, su procesamiento y transformación en DataFrames de Pandas, la conversión de estos DataFrames a formato Parquet y, finalmente, su carga en un bucket de S3.
-
-## Configuración del Entorno
-
-Para ejecutar este proyecto, necesitarás Python 3.11.7 y algunas librerías adicionales.
-
-### Instalación de Dependencias
-
-Primero, instala las dependencias necesarias usando `pip`. Asegúrate de estar en el directorio raíz del proyecto y ejecuta:
+- **src/**: Contiene los scripts de Python para el procesamiento de datos.
+  - **base/**: Contiene los esquemas de base de datos utilizados en el proyecto.
+  - **flow_*.py**: Scripts que implementan la lógica específica para cada tipo de procesamiento de datos (`pets`, `prod`, y datos OTU).
+- **run.py**: Script principal que orquesta la ejecución basada en los parámetros proporcionados.
 
 
-```pip install -r requirements.txt```
-Este comando instalará todas las librerías necesarias, como boto3, pandas, sqlalchemy, y otras dependencias.
+## Uso del Script
 
-Configuración de Variables de Entorno
-Necesitarás configurar varias variables de entorno para conectar con tu base de datos y AWS S3. Crea un archivo .env en el directorio raíz del proyecto con el siguiente contenido:
+### Argumentos del Script
 
-```
-DB_DRIVER=driver_aqui
-DB_HOST=tu_host_aqui
-DB_PORT=tu_puerto_aqui
-DB_NAME=tu_nombre_de_bd_aqui
-DB_USER=tu_usuario_aqui
-DB_PASSWORD=tu_contraseña_aqui
-AWS_ACCESS_KEY_ID=tu_access_key_id_aqui
-AWS_SECRET_ACCESS_KEY=tu_secret_access_key_aqui
-S3_REGION=tu_region_aqui
-S3_BUCKET=tu_bucket_aqui
-```
+El script acepta los siguientes argumentos para personalizar el procesamiento de datos:
 
-Ejecución
-Para ejecutar el script principal, navega al directorio raíz del proyecto y ejecuta:
+- `--project_id`: El ID del proyecto para el que se procesarán los datos.
+- `--type`: Tipo de datos a procesar (`pets` o `prod`).
+- `--otu`: Un parámetro opcional que indica que el script debe procesar datos OTU.
 
-```
-python main.py
-```
+### Implementación
 
-Este comando iniciará el proceso de extracción, transformación y carga (ETL) definido en los scripts.
+#### Funciones Principales
 
-Estructura del Proyecto
-El proyecto está organizado de la siguiente manera:
+- `load_pet_table_athena`: Procesa los datos para proyectos de tipo 'pets', cargando datos en DataFrame, filtrando por ID de proyecto y almacenando los resultados en S3 y Athena.
+- `load_prod_table_athena`: Similar a la función anterior pero para proyectos de tipo 'prod'.
+- `load_prod_otucount_table_athena`: Procesa datos OTU para proyectos 'prod', manejando la carga de datos, su procesamiento, y la integración con S3 y Athena.
+- `load_pet_otucount_table_athena`: Función análoga a la anterior, pero adaptada para proyectos 'pets'.
 
-```
-/raíz-del-proyecto
-    /src
-        /utils.py - Contiene las funciones de utilidad y lógica principal del ETL.
-    /logs
-        data-flow-parquet.log - Archivo de logs generado por el script.
-    main.py - Punto de entrada para ejecutar el proceso ETL.
-    .env - Archivo para configurar las variables de entorno (debe ser creado por el usuario).
-    requirements.txt - Dependencias del proyecto
+### Flujo de Trabajo
+
+1. **Consulta de Datos**: El script inicia extrayendo los datos necesarios desde el data warehouse en Redshift.
+2. **Creación de Archivos Parquet**: Crea archivos Parquet para cada proyecto, almacenándolos en `s3://siwaathena/projects/full-data/<nombre_del_proyecto>`.
+3. **Uso de Datos**: Los archivos están disponibles para ser consultados y utilizados con cualquier herramienta compatible con el formato Parquet.
+4. **Integración con Athena**: Se configuran y actualizan tablas en Athena bajo la base de datos `siwa_adb`, en el grupo de trabajo `siwa-data`, facilitando las consultas SQL directas sobre los datos procesados.
+
+
+### Ejemplo de Comando
+
+Ejecuta el script en la terminal con el siguiente comando:
+
+```bash
+python run.py --project_id=ExampleID --type=pets
 ```
 
-### Logs
-Los logs de la ejecución se guardan en el directorio /logs bajo el nombre data-flow-parquet.log. 
+Para procesar datos OTU para un proyecto específico:
+
+```bash
+python run.py --project_id=ExampleID --type=prod --otu
+```
