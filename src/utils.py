@@ -328,16 +328,17 @@ def fetch_taxonomy_to_dataframe():
         # Realiza la consulta
         taxonomy_query = session.query(Taxonomy)
         data = [{
-            'OTU': tax.otu,
-            'Species': tax.species,
-            'Genus': tax.genus,
-            'Family': tax.family,
-            'Order': tax.order,
-            'Class': tax.tclass,
-            'Phylum': tax.phylum,
-            'Kingdom': tax.kingdom
+                'OTU': tax.otu,
+                'Kingdom': tax.kingdom,
+                'Phylum': tax.phylum,
+                'Class': tax.tclass,
+                'Order': tax.order,
+                'Family': tax.family,
+                'Genus': tax.genus,
+                'Species': tax.species
         } for tax in taxonomy_query.all()]
         
+
         # Convertir la lista de diccionarios a DataFrame
         df = pd.DataFrame(data)
         return df
