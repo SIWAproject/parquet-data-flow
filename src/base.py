@@ -78,13 +78,13 @@ class Microbiome(base):
 
 class Histopathology(Base):
     __tablename__ = 'histo'
-    sampleId = sa.Column(sa.String, primary_key=True, nullable=False)
+    sampleId = sa.Column(sa.String)
     score = sa.Column(sa.String)
     animalId = sa.Column(sa.String)
     sampleLocation = sa.Column(sa.String)
     researchNumber = sa.Column(sa.String)
     value = sa.Column(sa.Float)
-    uniqueKey = sa.Column(sa.String)
+    uniqueKey = sa.Column(sa.String, primary_key=True, nullable=False)
 
     def asdict(self):
         return {

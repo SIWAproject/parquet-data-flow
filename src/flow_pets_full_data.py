@@ -1,47 +1,17 @@
-import boto3
 import io
-import os
-import time
 import pandas as pd
-import sqlalchemy as sa 
-from sqlalchemy import  MetaData
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.engine.url import URL
-from sqlalchemy.schema import MetaData
-from sqlalchemy.engine.url import URL
-from sqlalchemy.ext.declarative import declarative_base
 import logging
-from io import BytesIO
-from pathlib import Path
-import logging
-import os
-from sqlalchemy.engine.url import URL
-import sqlalchemy as sa
-from io import StringIO
-import logging
-import sqlalchemy as sa
-from sqlalchemy.engine.url import URL
-from sqlalchemy.orm import sessionmaker
-import psycopg2
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, String, create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy import Float, Integer, String
-from src.utils import check_query_status, export_geneexpression_to_csv, fetch_animals_pets_to_dataframe, fetch_animals_prod_to_dataframe, fetch_kits_prod_to_dataframe, fetch_microbiome_to_dataframe, export_histopathology_to_dataframe, fetch_pets_kits_to_dataframe
+from src.utils import fetch_animals_pets_to_dataframe, fetch_microbiome_to_dataframe, fetch_pets_kits_to_dataframe, fetch_projects_to_dataframe
 import pyarrow as pa
 import pyarrow.parquet as pq
-import argparse
-import pandas as pd
-import sqlalchemy as sa
-from sqlalchemy.orm import sessionmaker
-import logging
+import time
+import boto3
 
 
 logging.basicConfig()
 logging.getLogger('sqlalchemy').setLevel(logging.WARNING)
 
 def load_pet_table_athena(project_ids):
-    import boto3
     project_ids = project_ids
     project_name = project_ids[0]
     s3_client = boto3.client('s3')
@@ -58,6 +28,7 @@ def load_pet_table_athena(project_ids):
     df_pets_kits = fetch_pets_kits_to_dataframe()
     df_pets = fetch_animals_pets_to_dataframe()
     df_microbiome = fetch_microbiome_to_dataframe()
+    df_projects = fetch_projects_to_dataframe()
     kit_ids = df_pets_kits[df_pets_kits['Project ID'].isin(project_ids)]['Kit ID'].unique()
     animal_ids = df_pets[df_pets['Kit ID'].isin(kit_ids)]['Animal ID'].unique()
     df_microbiome_filtered = df_microbiome[df_microbiome['Animal ID'].isin(animal_ids)]
@@ -84,6 +55,15 @@ def load_pet_table_athena(project_ids):
 
     # final_merged_df['Sample ID'] = final_merged_df['Animal Sample ID'].combine_first(final_merged_df['Sample ID'])
     final_merged_df.drop(columns=['Animal ID_x', 'Animal ID_y', 'Animal Sample ID'], inplace=True)
+    final_merged_df = pd.merge(final_merged_df, df_projects, on='Project ID',  how='left')
+
+    cols = list(final_merged_df.columns)
+
+    if 'Sample ID' in cols:
+        cols.insert(0, cols.pop(cols.index('Sample ID')))
+        final_merged_df = final_merged_df[cols]
+        final_merged_df.columns = [col.replace(' ', '') for col in final_merged_df.columns]
+
 
     parquet_buffer = io.BytesIO()
     table = pa.Table.from_pandas(final_merged_df)
@@ -117,8 +97,7 @@ def load_pet_table_athena(project_ids):
 
     table_schema = ",\n    ".join(column_defs)
     table_schema
-    import boto3
-    import time
+
     # Ahora, crear la tabla en Athena
     database_name = "siwa_adb"  # Reemplaza con el nombre de tu base de datos en Athena
     s3_data =  f"s3://{bucket_name}/projects/full-data/{project_name}/"# Ubicación del archivo Parquet en S3

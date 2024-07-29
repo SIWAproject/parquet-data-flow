@@ -1,41 +1,11 @@
 import io
-import os
 import boto3
 import time
 import pandas as pd
-import sqlalchemy as sa 
-from sqlalchemy import  MetaData
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.engine.url import URL
-from sqlalchemy.schema import MetaData
-from sqlalchemy.engine.url import URL
-from sqlalchemy.ext.declarative import declarative_base
 import logging
-from io import BytesIO
-from pathlib import Path
-import logging
-import os
-from sqlalchemy.engine.url import URL
-import sqlalchemy as sa
-from io import StringIO
-import logging
-import sqlalchemy as sa
-from sqlalchemy.engine.url import URL
-from sqlalchemy.orm import sessionmaker
-import psycopg2
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, String, create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy import Float, Integer, String
-from src.utils import check_query_status, export_geneexpression_to_csv, fetch_animals_pets_to_dataframe, fetch_animals_prod_to_dataframe, fetch_kits_prod_to_dataframe, fetch_microbiome_to_dataframe, export_histopathology_to_dataframe
+from src.utils import check_query_status, export_geneexpression_to_csv, fetch_animals_pets_to_dataframe, fetch_animals_prod_to_dataframe, fetch_kits_prod_to_dataframe, fetch_microbiome_to_dataframe, export_histopathology_to_dataframe, fetch_projects_to_dataframe
 import pyarrow as pa
 import pyarrow.parquet as pq
-import argparse
-import pandas as pd
-import sqlalchemy as sa
-from sqlalchemy.orm import sessionmaker
-import logging
-
 
 logging.basicConfig()
 logging.getLogger('sqlalchemy').setLevel(logging.WARNING)
@@ -61,6 +31,7 @@ def load_prod_table_athena(project_ids):
     df_pets = fetch_animals_pets_to_dataframe()
     df_microbiome = fetch_microbiome_to_dataframe()
     df_histo = export_histopathology_to_dataframe()
+    df_projects = fetch_projects_to_dataframe()
 
     # Agrupar los datos por 'Sample ID' y asegurarse de que los valores de las demás columnas sean únicos
     df_histo_grouped = df_histo.groupby('Sample ID').agg({
@@ -83,7 +54,7 @@ def load_prod_table_athena(project_ids):
                 'Unique Key': row['Unique Key'],
                 'Score': score,
                 'Value': value
-            })
+            }) 
 
     df_expanded = pd.DataFrame(rows)
 
@@ -92,9 +63,7 @@ def load_prod_table_athena(project_ids):
                                         columns='Score', 
                                         values='Value', 
                                         aggfunc='first')
-
     df_pivoted_histo.reset_index(inplace=True)
-
 
     df_gen = export_geneexpression_to_csv()
 
@@ -149,9 +118,7 @@ def load_prod_table_athena(project_ids):
     df_gen_filtered = pivoted_df[pivoted_df['Animal ID'].isin(animal_ids)]
 
     df_histo_filtered = df_pivoted_histo[df_pivoted_histo['Animal ID'].isin(animal_ids)]
-
     df_histo_filtered['Sample ID'] = df_histo_filtered['Sample ID'].str.replace('-H$', '', regex=True)
-
     df_gen_filtered['Sample ID'] = df_gen_filtered['Sample ID'].str.replace('-G$', '', regex=True)
 
     df_microbiome_filtered['Sample ID'] = df_microbiome_filtered['Sample ID'].str.replace('-M$', '', regex=True)
@@ -173,6 +140,16 @@ def load_prod_table_athena(project_ids):
     merged_df_animal = pd.merge(df_animals, df_kits, on='Kit ID', how='left')
 
     final_merged_df = pd.merge(merged_df_animal, merged_df, on='Animal ID', how='inner')
+
+    # Unir con la información de projects
+    final_merged_df = pd.merge(final_merged_df, df_projects, on='Project ID',  how='left')
+
+    cols = list(final_merged_df.columns)
+
+    if 'Sample ID' in cols:
+        cols.insert(0, cols.pop(cols.index('Sample ID')))
+        final_merged_df = final_merged_df[cols]
+        final_merged_df.columns = [col.replace(' ', '') for col in final_merged_df.columns]
 
     parquet_buffer = io.BytesIO()
 
@@ -200,7 +177,7 @@ def load_prod_table_athena(project_ids):
     # Ahora, crear la tabla en Athena
     s3_data =  f"s3://{bucket_name}/projects/full-data/{project_name}/"# Ubicación del archivo Parquet en S3
     s3_output_location = f"s3://{bucket_name}/output/"  # Ubicación para los resultados de la consulta
-
+    
 
     # Crear la consulta de creación de tabla
     create_table_query = f"""

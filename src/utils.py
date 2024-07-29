@@ -1,20 +1,13 @@
 
 # %%
-import io
-import os
 import boto3
 import pandas as pd
 import sqlalchemy as sa 
-from sqlalchemy import  MetaData
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.engine.url import URL
-from sqlalchemy.schema import MetaData
-from sqlalchemy.engine.url import URL
-from sqlalchemy.ext.declarative import declarative_base
 from dotenv import load_dotenv
-from src.base import AnimalPets, AnimalProd,GeneExpression, Histopathology, KitPets, KitProduction, Microbiome, OtuCount, Taxonomy
+from src.base import AnimalPets, AnimalProd,GeneExpression, Histopathology, KitPets, KitProduction, Microbiome, OtuCount, Project, Taxonomy
 import logging
-from io import BytesIO
 from pathlib import Path
 import psycopg2
 # Obtener la ruta del directorio actual (__file__ es la ruta del archivo actual)
@@ -43,8 +36,6 @@ logging.getLogger('sqlalchemy').setLevel(logging.WARNING)
 # get the conventional shorthand name of the current checked out branch
 checkedout_branch = 'main'
 sa_db = "dev" 
-project_ids = ['FractalPronaca1']
-project_name = project_ids[0]
 s3_client = boto3.client('s3')
 bucket_name = 'siwaathena'
 database_name = "siwa_adb"  
@@ -189,6 +180,7 @@ def fetch_animals_prod_to_dataframe():
     finally:
         session.close()
 
+
 def fetch_animals_pets_to_dataframe():
     try:
         animals = session.query(AnimalPets).all()
@@ -230,6 +222,34 @@ def fetch_microbiome_to_dataframe():
         print(f"An error occurred: {e}")
     finally:
         session.close()
+
+
+
+def fetch_projects_to_dataframe():
+    try:
+        # Realiza la consulta para obtener todos los proyectos
+        projects = session.query(Project).all()
+
+        # Crear una lista de diccionarios, donde cada diccionario representa un proyecto
+        data = [{
+            'Project ID': project.projectId,
+            'Animal Type': project.animalType,
+            'Genetic Line': project.geneticLine,
+            'Client': project.client,
+            'External Client': project.externalClient,
+            'Country': project.country,
+            'Sampling Date': project.samplingDate
+        } for project in projects]
+
+        # Convertir la lista de diccionarios a DataFrame
+        df = pd.DataFrame(data)
+        return df
+
+    except Exception as e:
+        logger.error(f"An error occurred: {e}")
+    finally:
+        session.close()
+
 
 # Función para exportar los datos a un DataFrame
 def export_histopathology_to_dataframe():

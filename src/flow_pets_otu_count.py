@@ -1,40 +1,12 @@
 import io
-import os
 import boto3
 import time
 import pandas as pd
-import sqlalchemy as sa 
-from sqlalchemy import  MetaData
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.engine.url import URL
-from sqlalchemy.schema import MetaData
-from sqlalchemy.engine.url import URL
-from sqlalchemy.ext.declarative import declarative_base
 import logging
-from io import BytesIO
-from pathlib import Path
-import logging
-import os
-from sqlalchemy.engine.url import URL
-import sqlalchemy as sa
-from io import StringIO
-import logging
-import sqlalchemy as sa
-from sqlalchemy.engine.url import URL
-from sqlalchemy.orm import sessionmaker
-import psycopg2
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, String, create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy import Float, Integer, String
-from src.utils import check_query_status, export_geneexpression_to_csv, fetch_animals_pets_to_dataframe, fetch_animals_prod_to_dataframe, fetch_kits_prod_to_dataframe, fetch_microbiome_to_dataframe, export_histopathology_to_dataframe, fetch_otu_counts_to_dataframe, fetch_pets_kits_to_dataframe, fetch_taxonomy_to_dataframe, get_pycon
+from src.utils import fetch_animals_pets_to_dataframe, fetch_pets_kits_to_dataframe, fetch_taxonomy_to_dataframe, get_pycon
 import pyarrow as pa
 import pyarrow.parquet as pq
-import argparse
-import pandas as pd
-import sqlalchemy as sa
-from sqlalchemy.orm import sessionmaker
-import logging
+
 
 
 logging.basicConfig()
@@ -84,10 +56,10 @@ def load_pet_otucount_table_athena(project_ids):
     filtered_df = filtered_df[filtered_df['Adjusted Sample ID'].isin(animal_ids)]
     filtered_df['sampleid'] = filtered_df['sampleid'].str.slice(0, -2)
 
-    pivot_df = filtered_df.pivot(index='OTU', columns='sampleid', values='value')
+    pivot_df = filtered_df.pivot_table(index='OTU', columns='sampleid', values='value')
 
     merged_pivottax_df = pd.merge(pivot_df, df_taxonomy, on='OTU', how='inner')
-
+    merged_pivottax_df.fillna(0, inplace=True) 
     parquet_buffer = io.BytesIO()
     table = pa.Table.from_pandas(merged_pivottax_df)
     pq.write_table(table, parquet_buffer)
